@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 from player import *
 from circleshape import *
 from constants import *
@@ -31,6 +32,11 @@ def main():
         #print(pygame.get_init())
         screen.fill("black")
         updatable.update(dt)
+        for single_asteroid in asteroids:
+            if single_asteroid.collision(player):
+                print("Game over!")
+                sys.exit()
+
         for drawable_object in drawable:
             drawable_object.draw(screen)
         pygame.display.flip()

@@ -3,9 +3,14 @@ from constants import *
 import pygame
 
 class Player(CircleShape):
+
     def __init__(self, x, y):
         super().__init__(x,y,PLAYER_RADIUS)
         self.rotation = 0
+        # Create a surface for the sprite
+        self.image = pygame.Surface((PLAYER_RADIUS*2, PLAYER_RADIUS*2), pygame.SRCALPHA)
+        # Create a rect for positioning
+        self.rect = self.image.get_rect(center=(x, y))
     # in the player class
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -37,4 +42,6 @@ class Player(CircleShape):
     def move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * PLAYER_SPEED * dt
+        # Update the rect to match the new position
+        self.rect.center = self.position
         
